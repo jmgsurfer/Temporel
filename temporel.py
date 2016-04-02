@@ -1,6 +1,6 @@
+# -*- coding: windows-1252 -*-
 ##!C:\Python\Python27
-##!/usr/bin/env python
-#-*- coding: windows-1252 -*-
+#!/usr/bin/env python
 #qpy:console
 #
 #
@@ -26,10 +26,10 @@ import calendar
 #
 def menu():
     menu = {}
-    menu['1']="Determiner signe Zodiaque"
-    menu['2']="Determiner jour de la semaine"
-    menu['3']="Determiner si annee bissextile"
-    menu['4']="Determiner numero de semaine"
+    menu['1']="D�terminer signe Zodiaque"
+    menu['2']="D�terminer jour de la semaine"
+    menu['3']="Determiner si ann�e bissextile"
+    menu['4']="D�terminer num�ro de semaine"
     menu['5']="Afficher calendrier"
     menu['6']="Sortir"
     while True:
