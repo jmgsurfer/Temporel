@@ -1,6 +1,6 @@
-# -*- coding: windows-1252 -*-
-##!C:\Python\Python27
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+##!C:\Python\Python27
 #qpy:console
 #
 #
@@ -26,34 +26,34 @@ import calendar
 #
 def menu():
     menu = {}
-    menu['1']="D�terminer signe Zodiaque"
-    menu['2']="D�terminer jour de la semaine"
-    menu['3']="Determiner si ann�e bissextile"
-    menu['4']="D�terminer num�ro de semaine"
-    menu['5']="Afficher calendrier"
-    menu['6']="Sortir"
+    menu['1']=u"Déterminer signe Zodiaque"
+    menu['2']=u"Déterminer jour de la semaine"
+    menu['3']=u"Déterminer si année bissextile"
+    menu['4']=u"Déterminer numéro de semaine"
+    menu['5']=u"Afficher calendrier"
+    menu['6']=u"Sortir"
     while True:
         options=menu.keys()
         options.sort()
         print
         for entry in options:
             print entry, menu[entry]
-        selection=raw_input("Choisissez une action:")
+        selection=raw_input(u"Choisissez une action:")
         if selection =='1':
             print
-            print "SIGNE DU ZODIAQUE:"
-            jour=int(raw_input("Quel jour? "))
-            mois=int(raw_input("Quel mois? "))
+            print u"SIGNE DU ZODIAQUE:"
+            jour=int(raw_input(u"Quel jour? "))
+            mois=int(raw_input(u"Quel mois? "))
             m=fmt[mois-1]
-            print "Le", jour, m, "correspond a", getAstroSigne(jour,mois)
+            print "Le", jour, m, u"correspond à", getAstroSigne(jour,mois)
             print
             s=raw_input()
         elif selection == '2':
             print
-            print "JOUR DE LA SEMAINE:"
-            jour=int(raw_input("Quel jour? "))
-            mois=int(raw_input("Quel mois? "))
-            aaaa=int(raw_input("Quelle annee? "))
+            print u"JOUR DE LA SEMAINE:"
+            jour=int(raw_input(u"Quel jour? "))
+            mois=int(raw_input(u"Quel mois? "))
+            aaaa=int(raw_input("Quelle année? "))
             m=fmt[mois-1]
             day=datetime.date(aaaa,mois,jour)
             wday=day.weekday()
@@ -62,26 +62,26 @@ def menu():
             s=raw_input()
         elif selection == '3':
             print
-            print "ANNEE BISSEXTILE:"
-            aaaa=int(raw_input("Quelle annee? "))
+            print u"ANNEE BISSEXTILE:"
+            aaaa=int(raw_input("Quelle année? "))
             print getBiss(aaaa)
             print
             s=raw_input()
         elif selection == '4':
             print
-            print "NUMERO DE LA SEMAINE:"
-            jour=int(raw_input("Quel jour? "))
-            mois=int(raw_input("Quel mois? "))
-            aaaa=int(raw_input("Quelle annee? "))
+            print u"NUMERO DE LA SEMAINE:"
+            jour=int(raw_input(u"Quel jour? "))
+            mois=int(raw_input(u"Quel mois? "))
+            aaaa=int(raw_input("Quelle année? "))
             m=fmt[mois-1]
-            print "Le",jour,m,aaaa,"est en semaine:",numsemaine(aaaa, mois, jour)
+            print u"Le",jour,m,aaaa,u"est en semaine:",numsemaine(aaaa, mois, jour)
             print
             s=raw_input()
         elif selection == '5':
             print
-            print "CALENDRIER MENSUEL:"
-            mois=int(raw_input("Quel mois? "))
-            aaaa=int(raw_input("Quelle annee? "))
+            print u"CALENDRIER MENSUEL:"
+            mois=int(raw_input(u"Quel mois? "))
+            aaaa=int(raw_input("Quelle année? "))
             print
             getCalendar(aaaa, mois)
             print
@@ -90,10 +90,10 @@ def menu():
             break
 
         else:
-           print "Unknown Option Selected!"
+           print u"Unknown Option Selected!"
 #
 def getAstroSigne(day,month):
-    signs = ["Capricorne","Verseau","Poisson","Belier","Taureau","Gemeaux","Cancer","Lion","Vierge","Balance","Scorpion","Sagitaire"];
+    signs = [u"Capricorne",u"Verseau",u"Poisson",u"Bélier",u"Taureau",u"Gémeaux",u"Cancer",u"Lion",u"Vierge",u"Balance",u"Scorpion",u"Sagitaire"];
     dayTransition = [20,18,20,19,20,21,22,22,22,23,22,21];
     index = (month-1)%12 if day <= dayTransition[month-1] else month%12;
     return signs[index];
@@ -101,9 +101,9 @@ def getAstroSigne(day,month):
 def getBiss(yyyy):
     b = calendar.isleap(yyyy)
     if b == 1:
-        leap = str(yyyy)+" est bissextile"
+        leap = str(yyyy)+u" est bissextile"
     else:
-        leap = str(yyyy)+" n'est pas bissextile"
+        leap = str(yyyy)+u" n'est pas bissextile"
     return leap
 #
 def getDebToDate(yyyy, mm, dd):
@@ -135,7 +135,7 @@ def efface():
 #
 def joursemaine(code_joursem):
     # code_joursem: lundi= 0 to dimanche= 6
-    fwd = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']
+    fwd = [u'lundi', u'mardi', u'mercredi', u'jeudi', u'vendredi', u'samedi', u'dimanche']
     wd = fwd[code_joursem]
     return wd
 #
@@ -157,14 +157,14 @@ yearday = x[7] # nb jour depuis debut annee
 #
 ## DEBUT ##
 efface()
-fmt = ['janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'decembre']
+fmt = [u'janvier', u'février', u'mars', u'avril', u'mai', u'juin', u'juillet', u'août', u'septembre', u'octobre', u'novembre', u'décembre']
 mt = fmt[month-1]
-print "Aujourd'hui c'est le:"
-print joursemaine(weekday), day, mt, year, ", semaine ", numsemaine(year, month, day)
+print u"Aujourd'hui c'est le:"
+print joursemaine(weekday), day, mt, year, u", semaine ", numsemaine(year, month, day)
 print getBiss(year)
-print getDebToDate(year, month, day), "jours depuis le 1er janvier"
-print getFinToDate(year, month, day), "jours jusqu'a la fin de l'annee"
-print "Periode zodiacale:",getAstroSigne(day,month)
+print getDebToDate(year, month, day), u"jours depuis le 1er janvier"
+print getFinToDate(year, month, day), u"jours jusqu'a la fin de l'année"
+print u"Periode zodiacale:",getAstroSigne(day,month)
 print
 #getCalendar(year, month)
 menu()
