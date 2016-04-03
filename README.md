@@ -1,4 +1,3 @@
 # Temporel
-App to do calculations, zodiacal, chinese astro, with dates (Python-console-based project) 
+Console App to perform calculations, zodiacal, chinese astro, with dates. 
 Later, do a Python-window-based version
-
