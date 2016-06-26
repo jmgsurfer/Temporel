@@ -33,6 +33,17 @@ def numsemaine(yyyy, mm, dd):
     temp=datetime.date(yyyy, mm, dd)
     weeknumber=temp.isocalendar()[1]
     return weeknumber
+#    
+def show():
+    v1 = Rb_State.get()
+    selection = "You selected the option %d" % v1
+    Label2.config(text=selection)
+
+def removeWidget():
+    if Rb_State == 1:
+        Spinbox3.grid_remove
+
+
 
 # Global var
 #
@@ -43,9 +54,13 @@ Today_Day = x[2]
 Today_Weekday = x[6] # 0 = lundi
 Today_Yearday = x[7] # nb jour depuis debut annee
 #
+
 Window = Tk()
 Window.title('=== Temporel ===')
 #
+Rb_State = IntVar()
+Rb_State.set(2)
+
 #Frames
 #
 LFrame1 = LabelFrame(Window, text="Menu", padx=20, pady=20)
@@ -61,22 +76,23 @@ Label1.grid()
 #
 LFrame3 = LabelFrame(Frame2, text="Résultat")
 LFrame3.grid(row=1,column=0, sticky='nesw',padx=2, pady=2)
-Label2= Label(LFrame3, text="Texte")
+Label2= Label(LFrame3, text=Rb_State.get())
 Label2.grid()
 #
 #
 #RadioButtons
 #
-Rbutton1 = Radiobutton(LFrame1, text="Zodiaque", value=1)
+Rbutton1 = Radiobutton(LFrame1, text="Zodiaque", variable=Rb_State,
+command=show, value=1)
 Rbutton1.grid(sticky='w')
-Rbutton1.select() #Rb1 first selected
-Rbutton2 = Radiobutton(LFrame1, text="Jour semaine", value=2)
+#Rbutton1.select() #Rb1 first selected
+Rbutton2 = Radiobutton(LFrame1, text="Jour semaine", variable=Rb_State, command=show, value=2)
 Rbutton2.grid(sticky='w')
-Rbutton3 = Radiobutton(LFrame1, text="Bissextile", value=3)
+Rbutton3 = Radiobutton(LFrame1, text="Bissextile", variable=Rb_State, value=3)
 Rbutton3.grid(sticky='w')
-Rbutton4 = Radiobutton(LFrame1, text="Numéro semaine", value=4)
+Rbutton4 = Radiobutton(LFrame1, text="Numéro semaine", variable=Rb_State, value=4)
 Rbutton4.grid(sticky='w')
-Rbutton5 = Radiobutton(LFrame1, text="Calendrier", value=5)
+Rbutton5 = Radiobutton(LFrame1, text="Calendrier", variable=Rb_State, value=5)
 Rbutton5.grid(sticky='w')
 #
 #
