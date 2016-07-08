@@ -12,8 +12,12 @@ import calendar
 def getAstroSigne(day,month):
     signs = [u"Capricorne",u"Verseau",u"Poisson",u"Bélier",u"Taureau",u"Gémeaux",u"Cancer",u"Lion",u"Vierge",u"Balance",u"Scorpion",u"Sagitaire"];
     dayTransition = [20,18,20,19,20,21,22,22,22,23,22,21];
+    print month
+    month = int(month)
+    day = int(month)
     index = (month-1)%12 if day <= dayTransition[month-1] else month%12;
-    return signs[index];
+    Label2.config(text=sign[index])
+    #return signs[index];
 #
 def joursemaine(code_joursem):
     # code_joursem: lundi= 0 to dimanche= 6
@@ -33,7 +37,7 @@ def numsemaine(yyyy, mm, dd):
     temp=datetime.date(yyyy, mm, dd)
     weeknumber=temp.isocalendar()[1]
     return weeknumber
-#    
+#
 def show():
     v1 = Rb_State.get()
     selection = "You selected the option %d" % v1
@@ -79,11 +83,18 @@ LFrame3.grid(row=1,column=0, sticky='nesw',padx=2, pady=2)
 Label2= Label(LFrame3, text=Rb_State.get())
 Label2.grid()
 #
+# Spinbox date
+#
+var = StringVar(Window)
+var.set("15")
+Spinbox1 = Spinbox(LFrame2, width=2, from_=1, to=31, textvariable=var).grid(row=0, column=0)
+Spinbox2 = Spinbox(LFrame2, width=2, from_=1, to=12, textvariable="2").grid(row=0, column=1)
+Spinbox3 = Spinbox(LFrame2, width=4, from_=0, to=2020, textvariable="1970").grid(row=0, column=2)
 #
 #RadioButtons
 #
 Rbutton1 = Radiobutton(LFrame1, text="Zodiaque", variable=Rb_State,
-command=show, value=1)
+command=getAstroSigne(Spinbox1.get(),Spinbox2.get()), value=1)
 Rbutton1.grid(sticky='w')
 #Rbutton1.select() #Rb1 first selected
 Rbutton2 = Radiobutton(LFrame1, text="Jour semaine", variable=Rb_State, command=show, value=2)
@@ -96,13 +107,5 @@ Rbutton5 = Radiobutton(LFrame1, text="Calendrier", variable=Rb_State, value=5)
 Rbutton5.grid(sticky='w')
 #
 #
-# Spinbox date
-#
-var = StringVar(Window)
-var.set("15")
-Spinbox1 = Spinbox(LFrame2, width=2, from_=1, to=31, textvariable=var).grid(row=0, column=0)
-Spinbox2 = Spinbox(LFrame2, width=2, from_=1, to=12, textvariable="2").grid(row=0, column=1)
-Spinbox3 = Spinbox(LFrame2, width=4, from_=0, to=2020, textvariable="1970").grid(row=0, column=2)
-
 
 Window.mainloop()
