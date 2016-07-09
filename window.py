@@ -12,11 +12,10 @@ import calendar
 def getAstroSigne(day,month):
     signs = [u"Capricorne",u"Verseau",u"Poisson",u"Bélier",u"Taureau",u"Gémeaux",u"Cancer",u"Lion",u"Vierge",u"Balance",u"Scorpion",u"Sagitaire"];
     dayTransition = [20,18,20,19,20,21,22,22,22,23,22,21];
-    print month
     month = int(month)
     day = int(month)
     index = (month-1)%12 if day <= dayTransition[month-1] else month%12;
-    Label2.config(text=sign[index])
+    Label2.config(text=signs[index])
     #return signs[index];
 #
 def joursemaine(code_joursem):
@@ -63,7 +62,7 @@ Window = Tk()
 Window.title('=== Temporel ===')
 #
 Rb_State = IntVar()
-Rb_State.set(2)
+Rb_State.set(1)
 
 #Frames
 #
@@ -85,21 +84,25 @@ Label2.grid()
 #
 # Spinbox date
 #
-var = StringVar(Window)
-var.set("15")
-Spinbox1 = Spinbox(LFrame2, width=2, from_=1, to=31, textvariable=var).grid(row=0, column=0)
-Spinbox2 = Spinbox(LFrame2, width=2, from_=1, to=12, textvariable="2").grid(row=0, column=1)
-Spinbox3 = Spinbox(LFrame2, width=4, from_=0, to=2020, textvariable="1970").grid(row=0, column=2)
+strDay = StringVar(Window)
+strMonth = StringVar(Window)
+strYear = StringVar(Window)
+# strDay.set("15")
+# strMonth.set("2")
+# strYear.set("1970")
+Spinbox1 = Spinbox(LFrame2, width=2, from_=1, to=31, textvariable=strDay).grid(row=0, column=0)
+Spinbox2 = Spinbox(LFrame2, width=2, from_=1, to=12, textvariable=strMonth).grid(row=0, column=1)
+Spinbox3 = Spinbox(LFrame2, width=4, from_=0, to=2020, textvariable=strYear).grid(row=0, column=2)
 #
 #RadioButtons
 #
 Rbutton1 = Radiobutton(LFrame1, text="Zodiaque", variable=Rb_State,
-command=getAstroSigne(Spinbox1.get(),Spinbox2.get()), value=1)
+command=getAstroSigne(strDay.get(),strMonth.get()), value=1)
 Rbutton1.grid(sticky='w')
 #Rbutton1.select() #Rb1 first selected
 Rbutton2 = Radiobutton(LFrame1, text="Jour semaine", variable=Rb_State, command=show, value=2)
 Rbutton2.grid(sticky='w')
-Rbutton3 = Radiobutton(LFrame1, text="Bissextile", variable=Rb_State, value=3)
+Rbutton3 = Radiobutton(LFrame1, text="Bissextile", variable=Rb_State, command=show, value=3)
 Rbutton3.grid(sticky='w')
 Rbutton4 = Radiobutton(LFrame1, text="Numéro semaine", variable=Rb_State, value=4)
 Rbutton4.grid(sticky='w')
@@ -107,5 +110,4 @@ Rbutton5 = Radiobutton(LFrame1, text="Calendrier", variable=Rb_State, value=5)
 Rbutton5.grid(sticky='w')
 #
 #
-
 Window.mainloop()
