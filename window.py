@@ -19,6 +19,17 @@ def getAstroSigne(day,month):
     Label2.config(text=signs[index])
     #return signs[index];
 #
+def getJourSemaine(day,month,year):
+    day = int(day)
+    month = int(month)
+    year=int(year)
+    fmt = [u'janvier', u'février', u'mars', u'avril', u'mai', u'juin', u'juillet', u'août', u'septembre', u'octobre', u'novembre', u'décembre']
+    m = fmt[month-1]
+    dd=datetime.date(year,month,day)
+    wday= dd.weekday()
+    wd = joursemaine(wday) + " " + str(day) + " " + m + " " + str(year)
+    Label2.config(text= wd)
+
 def joursemaine(code_joursem):
     # code_joursem: lundi= 0 to dimanche= 6
     fwd = [u'lundi', u'mardi', u'mercredi', u'jeudi', u'vendredi',u'samedi', u'dimanche']
@@ -26,36 +37,66 @@ def joursemaine(code_joursem):
     return wd
 #
 def getBiss(yyyy):
+    yyyy = int (yyyy)
     b = calendar.isleap(yyyy)
     if b == 1:
         leap = str(yyyy)+u" est bissextile"
     else:
         leap = str(yyyy)+u" n'est pas bissextile"
-    return leap
+    Label2.config(text=leap)
+#    return leap
 #
 def numsemaine(dd, mm, yyyy):
+    dd = int(dd)
+    mm = int(mm)
+    yyyy = int(yyyy)
     temp=datetime.date(yyyy, mm, dd)
     weeknumber=temp.isocalendar()[1]
-    return weeknumber
+    wn = "Cette date est en semaine: " + str(weeknumber)
+    Label2.config(text= wn)
+#    return weeknumber
 #
 def show():
     v1 = Rb_State.get()
     selection = "You selected the option %d" % v1
     Label2.config(text=selection)
 
-def removeWidget():
-    if Rb_State.get() == 1:
-        Spinbox3.grid_remove()
 
 def selected():
+    # Zodiaque
     if Rb_State.get() == 1:
-        removeWidget()
+        Spinbox1.grid(row=0,column=0)
+        Spinbox2.grid(row=0,column=1)
+        Spinbox3.grid_remove()
         getAstroSigne(strDay.get(),strMonth.get())
+
+    # Jour semaine
     elif Rb_State.get() == 2:
+        Spinbox1.grid(row=0,column=0)
+        Spinbox2.grid(row=0,column=1)
         Spinbox3.grid(row=0,column=2)
-        numsemaine(strDay.get(),strMonth.get(),strYear())
+        getJourSemaine(strDay.get(),strMonth.get(),strYear.get())
+
+    # Bissextile
     elif Rb_State.get() == 3:
+        Spinbox1.grid_remove()
+        Spinbox2.grid_remove()
+        Spinbox3.grid(row=0,column=2)
         getBiss(strYear.get())
+
+    # Numero semaine
+    elif Rb_State.get() == 4:
+        Spinbox1.grid(row=0,column=0)
+        Spinbox2.grid(row=0,column=1)
+        Spinbox3.grid(row=0,column=2)
+        numsemaine(strDay.get(),strMonth.get(),strYear.get())
+
+    # Calendrier
+    elif Rb_State.get() == 5:
+        Spinbox1.grid(row=0,column=0)
+        Spinbox2.grid(row=0,column=1)
+        Spinbox3.grid(row=0,column=2)
+        #joursemaine
 
 # Global var
 #
@@ -96,9 +137,9 @@ Label2.grid()
 strDay = StringVar(Window)
 strMonth = StringVar(Window)
 strYear = StringVar(Window)
-# strDay.set("15")
-# strMonth.set("2")
-# strYear.set("1970")
+strDay.set(str(Today_Day))
+strMonth.set(str(Today_Month))
+strYear.set(str(Today_Year))
 Spinbox1 = Spinbox(LFrame2, width=2, from_=1, to=31, textvariable=strDay)
 Spinbox1.grid(row=0, column=0)
 Spinbox2 = Spinbox(LFrame2, width=2, from_=1, to=12, textvariable=strMonth)
